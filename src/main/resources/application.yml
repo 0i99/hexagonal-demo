@@ -1,0 +1,26 @@
+server:
+  port: 8080
+
+management:
+  server:
+    port: 9000
+    ssl:
+      enabled: false
+  endpoints:
+    enabled-by-default: false
+
+spring.datasource:
+  url: jdbc:hsqldb:mem:hexdemo;sql.syntax_pgs=true
+  hikari:
+    idle-timeout: 30000
+    minimum-idle: 1
+    maximum-pool-size: 5
+    auto-commit: false
+    read-only: true
+
+
+spring.jpa.properties.hibernate:
+  dialect: org.hibernate.dialect.HSQLDialect
+  show_sql: true
+  format_sql: true
+
