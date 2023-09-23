@@ -10,6 +10,36 @@ A port is just an interface to be implemented by an adapter. There are two types
 
 With this approach, you will have well-defined interfaces to communicate in and out of the domain layer without depending on implementation details.
 
+
+## Load test via k6 framework
+
+run app and tools:
+```shell
+docker compose -f load-tests.docker.compose.yml up --build
+```
+
+run only tests:
+```shell
+docker compose -f load-tests.docker.compose.yml run k6
+```
+
+go to `http://localhost:3000` and configure grafana with influx datasource (host: http://influxdb:8086/ , database: loadtests).
+
+You can use dashboard located in [here](tests/grafana/dashboard/2587_rev3.json)
+
+Results:
+
+![](docs/img/loadtests.grafana.png)
+
+cleanup
+```shell
+docker compose -f load-tests.docker.compose.yml down
+```
+
+### Grafana load tests results
+
+![](docs/img/loadtests.grafana.png)
+
 ### See also:
  - https://beyondxscratch.com/2017/08/19/hexagonal-architecture-the-practical-guide-for-a-clean-architecture/
  - https://blog.allegro.tech/2020/05/hexagonal-architecture-by-example.html

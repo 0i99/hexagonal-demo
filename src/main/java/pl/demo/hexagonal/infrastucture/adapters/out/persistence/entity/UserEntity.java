@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 
 @Entity
-@Table(name = "users")
+@Table(name = "user")
 @Getter
 @Setter
 public class UserEntity implements Serializable {
@@ -21,9 +21,7 @@ public class UserEntity implements Serializable {
     private Integer type;
 
     @OneToOne
-    @JoinColumns({
-            @JoinColumn(name = "u_email", referencedColumnName = "d_email", insertable = false, updatable = false)
-    })
+    @JoinColumn(name = "u_email", referencedColumnName = "d_email", insertable = false, updatable = false)
     private UserDetailsEntity details;
 
 

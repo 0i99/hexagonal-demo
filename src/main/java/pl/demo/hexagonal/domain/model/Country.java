@@ -11,7 +11,7 @@ import java.util.List;
 @Getter
 @Setter
 @AllArgsConstructor
-public class User {
+public class Country {
     private String name;
-    private String surname;
+    private List<City> cities;
 }

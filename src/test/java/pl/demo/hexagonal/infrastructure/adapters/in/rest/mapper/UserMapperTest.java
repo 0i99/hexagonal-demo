@@ -31,7 +31,7 @@ class UserMapperTest {
     @DisplayName("check mappings from User to UserRsp")
     @Test
     void checkMappingToUserRsp() {
-        User source = User.builder().name("jan").surname("nowak").cities(List.of(City.builder().name("Warszawa").build())).build();
+        User source = User.builder().name("jan").surname("nowak").build();
         Details source2 = Details.builder().info("qwerty").build();
         UserRsp target = mapper.maptoUserRsp(source, source2);//
 
@@ -39,7 +39,5 @@ class UserMapperTest {
         Assertions.assertEquals("NOWAK", target.getOthersurname());
         Assertions.assertEquals("qwerty", target.getInformation());
 
-        CityRsp cityRsp = target.getCityRspList().get(0);
-        Assertions.assertEquals("warszawa".toUpperCase(), cityRsp.getName());
     }
 }

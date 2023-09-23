@@ -12,6 +12,6 @@ public class UserService implements GetUserUseCase {
 
     @Override
     public User getUser(String userId) {
-        return null;
+        return getUserPort.getUser(userId);
     }
 }

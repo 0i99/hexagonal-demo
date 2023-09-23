@@ -1,0 +1,69 @@
+version: '3.4'
+
+networks:
+  k6:
+  grafana:
+
+services:
+  influxdb:
+    image: influxdb:1.8
+    container_name: influxdb
+    networks:
+      - k6
+      - grafana
+    ports:
+      - "8086:8086"
+    environment:
+      - INFLUXDB_DB=loadtests
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    networks:
+      - grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_BASIC_ENABLED=false
+
+  app:
+    image: app
+    networks:
+      - k6
+    build: .
+    container_name: app
+    ports:
+      - 8080:8080
+      - 9000:9000
+    environment:
+      #      - SPRING_DATASOURCE_USERNAME=
+      #      - SPRING_DATASOURCE_PASSWORD=
+      - SPRING_CACHE_TYPE=none
+#      - JAVA_TOOL_OPTIONS=-XX:+FlightRecorder -XX:FlightRecorderOptions=stackdepth=400 -XX:StartFlightRecording=delay=30s,duration=180s,filename=/data/flight.jfr
+    healthcheck:
+      test: curl -f http://localhost:9000/actuator/health/liveness
+      interval: 5s
+      timeout: 2s
+      retries: 4
+#    volumes:
+#      - source: ./tests
+#        target: /data
+#        type: bind
+    user: root
+
+  k6:
+    image: grafana/k6
+    container_name: k6
+    depends_on:
+      app:
+        condition: service_healthy
+    networks:
+      - k6
+    ports:
+      - "6565:6565"
+    environment:
+      - K6_OUT=influxdb=http://influxdb:8086/loadtests
+    volumes:
+      - ./tests:/tests
+    command: run /tests/user.js --env app=http://app:8080

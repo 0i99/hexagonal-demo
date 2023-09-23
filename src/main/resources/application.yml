@@ -8,6 +8,18 @@ management:
       enabled: false
   endpoints:
     enabled-by-default: false
+  endpoint:
+    health:
+      enabled: true
+      probes:
+        enabled: true
+      group:
+        liveness:
+          include: livenessState
+          show-details: always
+        readiness:
+          include: readinessState
+          show-details: always
 
 spring.datasource:
   url: jdbc:hsqldb:mem:hexdemo;sql.syntax_pgs=true
@@ -16,11 +28,12 @@ spring.datasource:
     minimum-idle: 1
     maximum-pool-size: 5
     auto-commit: false
-    read-only: true
+#    read-only: true
 
-
-spring.jpa.properties.hibernate:
-  dialect: org.hibernate.dialect.HSQLDialect
-  show_sql: true
-  format_sql: true
+spring.jpa:
+  generate-ddl: true
+  properties.hibernate:
+    dialect: org.hibernate.dialect.HSQLDialect
+    show_sql: true
+    format_sql: true
 

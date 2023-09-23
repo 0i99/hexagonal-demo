@@ -5,7 +5,7 @@ import lombok.*;
 
 import java.util.List;
 
-//@Builder //problems with @AfterMapping
+@Builder
 @Getter
 @Setter
 @AllArgsConstructor
@@ -17,8 +17,6 @@ public class UserRsp {
 
     @JsonProperty("qwerty_surname")
     private String othersurname;
-
-    private List<CityRsp> cityRspList;
 
     private String information; //from another source
 }

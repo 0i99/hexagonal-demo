@@ -62,7 +62,7 @@ class UserControllerTest {
                 )
                 .andExpect(status().is2xxSuccessful())
                 .andExpect(content().json("""
-                             {"cityRspList":null,"information":"some info","qwerty_name":"sth","qwerty_surname":"ELSE"}
+                             {"information":"some info","qwerty_name":"sth","qwerty_surname":"ELSE"}
                         """))
                 .andReturn();
 
