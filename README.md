@@ -36,10 +36,6 @@ cleanup
 docker compose -f load-tests.docker.compose.yml down
 ```
 
-### Grafana load tests results
-
-![](docs/img/loadtests.grafana.png)
-
 ### See also:
  - https://beyondxscratch.com/2017/08/19/hexagonal-architecture-the-practical-guide-for-a-clean-architecture/
  - https://blog.allegro.tech/2020/05/hexagonal-architecture-by-example.html
