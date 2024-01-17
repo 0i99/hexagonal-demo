@@ -8,11 +8,13 @@ import org.springframework.context.annotation.FilterType;
 import org.springframework.context.annotation.Import;
 import pl.demo.hexagonal.domain.DomainConfig;
 import pl.demo.hexagonal.infrastucture.adapters.in.rest.RestAdapterConfig;
+import pl.demo.hexagonal.infrastucture.adapters.out.csv.CsvAdapterConfig;
 import pl.demo.hexagonal.infrastucture.adapters.out.persistence.PersistenceAdapterConfig;
 
 @Import(value = {
         PersistenceAdapterConfig.class
         , RestAdapterConfig.class
+        , CsvAdapterConfig.class
         , DomainConfig.class
 })
 @ComponentScan(basePackages = {"pl.demo.hexagonal"}, includeFilters = {

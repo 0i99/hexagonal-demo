@@ -2,14 +2,15 @@ package pl.demo.hexagonal.infrastucture.adapters.in.rest;
 
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import pl.demo.hexagonal.application.ports.in.GetUserUseCase;
 import pl.demo.hexagonal.domain.model.Details;
 import pl.demo.hexagonal.domain.model.User;
 import pl.demo.hexagonal.infrastucture.adapters.in.rest.mapper.UserMapper;
-import pl.demo.hexagonal.infrastucture.adapters.in.rest.model.ErrorRsp;
 import pl.demo.hexagonal.infrastucture.adapters.in.rest.model.UserRsp;
 
 @RequiredArgsConstructor
@@ -27,17 +28,6 @@ public class UserController {
         User userDetails = getUserUseCase.getUser(userId);
         Details additionalDetails = Details.builder().info("some info").build();
         return ResponseEntity.ok(userMapper.maptoUserRsp(userDetails, additionalDetails));//Details.builder().info("info").build()
-    }
-
-    @ExceptionHandler(UnsupportedOperationException.class)
-    protected ResponseEntity<ErrorRsp> handle() {
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(
-                ErrorRsp.builder()
-                        .code("code")
-                        .message("message")
-                        .details("details")
-                        .build()
-        );
     }
 
 }
