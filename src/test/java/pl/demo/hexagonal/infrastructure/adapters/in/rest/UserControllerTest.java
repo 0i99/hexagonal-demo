@@ -14,7 +14,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import pl.demo.hexagonal.application.ports.in.GetUserUseCase;
 import pl.demo.hexagonal.domain.model.User;
-import pl.demo.hexagonal.infrastucture.adapters.in.rest.RestAdapterConfig;
 import pl.demo.hexagonal.infrastucture.adapters.in.rest.UserController;
 import pl.demo.hexagonal.infrastucture.adapters.in.rest.mapper.UserMapper;
 
@@ -24,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 
 @WebMvcTest(UserController.class)
-@ContextConfiguration(classes = RestAdapterConfig.class)
+@ContextConfiguration(classes = RestAdapterTestConfig.class)
 class UserControllerTest {
 
     @Autowired
